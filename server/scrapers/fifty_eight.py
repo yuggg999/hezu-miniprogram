@@ -35,7 +35,7 @@ class FiftyEightScraper(BaseScraper):
 
     def _parse_list(self, html: str, city: str) -> list[ScrapedPost]:
         """解析58同城合租列表"""
-        soup = BeautifulSoup(html, "lxml")
+        soup = BeautifulSoup(html, "html.parser")
         posts = []
 
         # 58同城房源列表

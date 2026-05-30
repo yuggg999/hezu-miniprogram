@@ -31,7 +31,7 @@ class DoubanScraper(BaseScraper):
 
     def _parse_list(self, html: str, city: str) -> list[ScrapedPost]:
         """解析帖子列表页"""
-        soup = BeautifulSoup(html, "lxml")
+        soup = BeautifulSoup(html, "html.parser")
         posts = []
 
         # 豆瓣小组帖子列表
@@ -102,7 +102,7 @@ class DoubanScraper(BaseScraper):
         if not html:
             return None
 
-        soup = BeautifulSoup(html, "lxml")
+        soup = BeautifulSoup(html, "html.parser")
         content = soup.find("div", class_="topic-content")
         if not content:
             return None
