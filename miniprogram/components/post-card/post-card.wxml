@@ -1,0 +1,32 @@
+<!-- 帖子卡片组件 -->
+<view class="post-card" bindtap="onTap">
+  <view class="card-header">
+    <view class="title-row">
+      <text class="title">{{post.title}}</text>
+    </view>
+    <view class="price" wx:if="{{post.price}}">¥{{post.price}}/月</view>
+    <view class="price text-gray" wx:else>面议</view>
+  </view>
+
+  <view class="card-body">
+    <view class="info-row">
+      <view class="tag source-tag" style="background: {{post.sourceColor}}20; color: {{post.sourceColor}}">
+        <text class="icon">{{post.sourceIcon}}</text>
+        <text>{{post.sourceName}}</text>
+      </view>
+      <view class="tag area-tag" wx:if="{{post.area}}">
+        <text>📍</text>
+        <text>{{post.area}}</text>
+      </view>
+    </view>
+
+    <view class="desc text-ellipsis" wx:if="{{post.description}}">
+      {{post.description}}
+    </view>
+  </view>
+
+  <view class="card-footer">
+    <view class="time text-sm text-gray">{{post.timeText}}</view>
+    <credibility-badge score="{{post.credibility_score}}" text="{{post.credibilityText}}" color="{{post.credibilityColor}}" />
+  </view>
+</view>

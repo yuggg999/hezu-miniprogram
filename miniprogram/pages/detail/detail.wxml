@@ -1,0 +1,115 @@
+<!-- 帖子详情页 -->
+<view class="page-detail" wx:if="{{!loading && post}}">
+  <!-- 图片轮播 -->
+  <swiper class="image-swiper" wx:if="{{post.images && post.images.length > 0}}"
+          indicator-dots autoplay circular>
+    <swiper-item wx:for="{{post.images}}" wx:key="*this">
+      <image src="{{item}}" mode="aspectFill" class="slide-image"
+             bindtap="onPreviewImage" data-src="{{item}}" />
+    </swiper-item>
+  </swiper>
+
+  <!-- 基本信息 -->
+  <view class="info-section card">
+    <view class="title">{{post.title}}</view>
+    <view class="price-row">
+      <text class="price" wx:if="{{post.price}}">¥{{post.price}}/月</text>
+      <text class="price" wx:else>面议</text>
+      <credibility-badge score="{{post.credibility_score}}"
+                         text="{{credibility.text}}"
+                         color="{{credibility.color}}"
+                         size="large" />
+    </view>
+
+    <view class="tags">
+      <view class="tag" style="background: {{sourceInfo.color}}20; color: {{sourceInfo.color}}">
+        <text>{{sourceInfo.icon}} {{sourceInfo.name}}</text>
+      </view>
+      <view class="tag" wx:if="{{post.area}}">
+        <text>📍 {{post.area}}</text>
+      </view>
+      <view class="tag" wx:if="{{post.city}}">
+        <text>🏙️ {{post.city}}</text>
+      </view>
+    </view>
+
+    <view class="time-info">
+      <text class="text-sm text-gray">发布时间：{{post.published_at || post.scraped_at}}</text>
+    </view>
+  </view>
+
+  <!-- AI 可信度分析 -->
+  <view class="credibility-section card">
+    <view class="section-title">
+      <text class="icon">🤖</text>
+      <text>AI 可信度分析</text>
+    </view>
+
+    <!-- 总分 -->
+    <view class="total-score">
+      <view class="score-ring" style="border-color: {{credibility.color}};">
+        <text class="score-num">{{post.credibility_score}}</text>
+        <text class="score-label">综合评分</text>
+      </view>
+      <text class="score-level" style="color: {{credibility.color}};">{{credibility.text}}</text>
+    </view>
+
+    <!-- 各维度分数 -->
+    <view class="score-dimensions">
+      <view class="dimension" wx:for="{{scoreItems}}" wx:key="key">
+        <view class="dim-header">
+          <text class="dim-icon">{{item.icon}}</text>
+          <text class="dim-label">{{item.label}}</text>
+          <text class="dim-score" style="color: {{item.score >= 60 ? '#27ae60' : item.score >= 40 ? '#f39c12' : '#e74c3c'}}">{{item.score}}</text>
+        </view>
+        <view class="dim-bar">
+          <view class="dim-bar-fill"
+                style="width: {{item.score}}%; background: {{item.score >= 60 ? '#27ae60' : item.score >= 40 ? '#f39c12' : '#e74c3c'}}">
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- AI 分析 -->
+    <view class="ai-analysis" wx:if="{{post.credibility_detail.analysis}}">
+      <text class="analysis-label">分析结论：</text>
+      <text class="analysis-text">{{post.credibility_detail.analysis}}</text>
+    </view>
+  </view>
+
+  <!-- 详细描述 -->
+  <view class="desc-section card" wx:if="{{post.description}}">
+    <view class="section-title">
+      <text class="icon">📝</text>
+      <text>详细描述</text>
+    </view>
+    <view class="desc-content">{{post.description}}</view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <view class="btn-action btn-copy" bindtap="onCopyLink">
+      <text class="btn-icon">📋</text>
+      <text>复制链接</text>
+    </view>
+    <view class="btn-action btn-original" bindtap="onOpenOriginal">
+      <text class="btn-icon">🔗</text>
+      <text>查看原帖</text>
+    </view>
+    <view class="btn-action btn-call" bindtap="onCallPhone" wx:if="{{post.contact}}">
+      <text class="btn-icon">📞</text>
+      <text>联系对方</text>
+    </view>
+  </view>
+</view>
+
+<!-- 加载状态 -->
+<view class="loading-state" wx:if="{{loading}}">
+  <text>加载中...</text>
+</view>
+
+<!-- 空状态 -->
+<view class="empty-state" wx:if="{{!loading && !post}}">
+  <text class="icon">😕</text>
+  <text class="text">帖子不存在或已被删除</text>
+</view>

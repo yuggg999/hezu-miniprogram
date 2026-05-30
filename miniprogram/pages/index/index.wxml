@@ -1,0 +1,86 @@
+<!-- 首页 - 帖子列表 -->
+<view class="page-index">
+  <!-- 顶部搜索栏 -->
+  <view class="search-bar" bindtap="onSearchTap">
+    <view class="search-input">
+      <text class="icon">🔍</text>
+      <text class="placeholder">搜索合租信息...</text>
+    </view>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-section">
+    <view class="filter-tabs">
+      <view class="tab {{showFilter ? 'active' : ''}}" bindtap="onFilterToggle">
+        <text>筛选</text>
+        <text class="arrow {{showFilter ? 'up' : ''}}">▼</text>
+      </view>
+      <view class="tab {{filters.source === 'douban' ? 'active' : ''}}"
+            bindtap="onSourceFilter" data-source="douban">豆瓣</view>
+      <view class="tab {{filters.source === '58' ? 'active' : ''}}"
+            bindtap="onSourceFilter" data-source="58">58同城</view>
+      <view class="tab {{filters.source === 'xianyu' ? 'active' : ''}}"
+            bindtap="onSourceFilter" data-source="xianyu">闲鱼</view>
+    </view>
+
+    <!-- 展开的筛选面板 -->
+    <view class="filter-panel {{showFilter ? 'show' : ''}}">
+      <!-- 价格筛选 -->
+      <view class="filter-group">
+        <text class="label">价格区间</text>
+        <view class="options">
+          <view class="option {{filters.maxPrice === '1500' ? 'active' : ''}}"
+                bindtap="onPriceFilter" data-max="1500">1500以下</view>
+          <view class="option {{filters.minPrice === '1500' && filters.maxPrice === '3000' ? 'active' : ''}}"
+                bindtap="onPriceFilter" data-min="1500" data-max="3000">1500-3000</view>
+          <view class="option {{filters.minPrice === '3000' ? 'active' : ''}}"
+                bindtap="onPriceFilter" data-min="3000">3000以上</view>
+        </view>
+      </view>
+
+      <!-- 可信度筛选 -->
+      <view class="filter-group">
+        <text class="label">可信度</text>
+        <view class="options">
+          <view class="option {{filters.minCredibility === '80' ? 'active' : ''}}"
+                bindtap="onCredibilityFilter" data-score="80">高度可信</view>
+          <view class="option {{filters.minCredibility === '60' ? 'active' : ''}}"
+                bindtap="onCredibilityFilter" data-score="60">较为可信</view>
+          <view class="option {{filters.minCredibility === '40' ? 'active' : ''}}"
+                bindtap="onCredibilityFilter" data-score="40">需谨慎</view>
+        </view>
+      </view>
+
+      <view class="filter-actions">
+        <view class="btn-clear" bindtap="onClearFilters">清除筛选</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 帖子列表 -->
+  <view class="post-list">
+    <post-card
+      wx:for="{{posts}}"
+      wx:key="id"
+      post="{{item}}"
+      bind:tap="onPostTap"
+    />
+
+    <!-- 加载状态 -->
+    <view class="loading-more" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && posts.length === 0}}">
+      <text class="icon">🏠</text>
+      <text class="text">暂无合租信息</text>
+      <text class="text-sm text-gray mt-10">请稍后再试或调整筛选条件</text>
+    </view>
+
+    <!-- 没有更多 -->
+    <view class="no-more" wx:if="{{!hasMore && posts.length > 0}}">
+      <text>—— 已加载全部 ——</text>
+    </view>
+  </view>
+</view>

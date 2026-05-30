@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "post-card": "/components/post-card/post-card"
+  },
+  "navigationBarTitleText": "合租找室友"
+}

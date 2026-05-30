@@ -1,0 +1,66 @@
+/* 可信度徽章样式 */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6rpx 16rpx;
+  border-radius: 24rpx;
+  border: 1rpx solid;
+  gap: 8rpx;
+}
+
+.score-circle {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  border: 2rpx solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-num {
+  font-size: 20rpx;
+  font-weight: 700;
+}
+
+.level-text {
+  font-size: 22rpx;
+  font-weight: 500;
+}
+
+/* 尺寸变体 */
+.badge-small {
+  padding: 4rpx 12rpx;
+  gap: 6rpx;
+}
+
+.badge-small .score-circle {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.badge-small .score-num {
+  font-size: 16rpx;
+}
+
+.badge-small .level-text {
+  font-size: 18rpx;
+}
+
+.badge-large {
+  padding: 10rpx 24rpx;
+  gap: 12rpx;
+}
+
+.badge-large .score-circle {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.badge-large .score-num {
+  font-size: 26rpx;
+}
+
+.badge-large .level-text {
+  font-size: 28rpx;
+}

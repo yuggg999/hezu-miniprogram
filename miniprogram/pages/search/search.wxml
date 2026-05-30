@@ -1,0 +1,64 @@
+<!-- 搜索页 -->
+<view class="page-search">
+  <!-- 搜索栏 -->
+  <view class="search-header">
+    <view class="search-box">
+      <text class="icon">🔍</text>
+      <input class="input" placeholder="搜索合租信息" value="{{keyword}}"
+             bindinput="onInput" bindconfirm="onSearch" focus auto-focus />
+      <text class="clear" wx:if="{{keyword}}" bindtap="onInput" data-detail="{{ {value: ''} }}">✕</text>
+    </view>
+    <text class="btn-search" bindtap="onSearch">搜索</text>
+  </view>
+
+  <!-- 搜索前：历史 + 热门 -->
+  <view class="before-search" wx:if="{{!searched}}">
+    <view class="section" wx:if="{{history.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">搜索历史</text>
+        <text class="btn-clear" bindtap="onClearHistory">清除</text>
+      </view>
+      <view class="keyword-list">
+        <view class="keyword-tag" wx:for="{{history}}" wx:key="*this"
+              bindtap="onKeywordTap" data-keyword="{{item}}">
+          {{item}}
+        </view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">热门搜索</text>
+      </view>
+      <view class="keyword-list">
+        <view class="keyword-tag hot" wx:for="{{hotKeywords}}" wx:key="*this"
+              bindtap="onKeywordTap" data-keyword="{{item}}">
+          {{item}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view class="search-results" wx:if="{{searched}}">
+    <view class="result-header">
+      <text class="result-count" wx:if="{{!loading}}">找到 {{posts.length}} 条结果</text>
+    </view>
+
+    <view class="post-list">
+      <post-card wx:for="{{posts}}" wx:key="id" post="{{item}}" bind:tap="onPostTap" />
+    </view>
+
+    <view class="loading-more" wx:if="{{loading}}"><text>加载中...</text></view>
+
+    <view class="empty-state" wx:if="{{!loading && posts.length === 0}}">
+      <text class="icon">🔍</text>
+      <text class="text">未找到相关合租信息</text>
+      <text class="text-sm text-gray mt-10">换个关键词试试吧</text>
+    </view>
+
+    <view class="no-more" wx:if="{{!hasMore && posts.length > 0}}">
+      <text>—— 已加载全部 ——</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+<!-- 可信度徽章组件 -->
+<view class="badge badge-{{size}}" style="background: {{levelColor}}15; border-color: {{levelColor}}40;">
+  <view class="score-circle" style="border-color: {{levelColor}};">
+    <text class="score-num" style="color: {{levelColor}};">{{score}}</text>
+  </view>
+  <text class="level-text" style="color: {{levelColor}};">{{levelText}}</text>
+</view>

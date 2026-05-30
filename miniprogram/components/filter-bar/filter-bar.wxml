@@ -1,0 +1,36 @@
+<!-- 筛选栏组件 -->
+<view class="filter-bar">
+  <view class="tabs">
+    <view class="tab {{showPanel ? 'active' : ''}}" bindtap="onToggle">
+      <text>筛选</text>
+      <text class="arrow {{showPanel ? 'up' : ''}}">▼</text>
+    </view>
+    <view class="tab {{activeSource === item.key ? 'active' : ''}}"
+          wx:for="{{sources}}" wx:key="key"
+          bindtap="onSourceTap" data-source="{{item.key}}">
+      {{item.name}}
+    </view>
+  </view>
+
+  <view class="panel {{showPanel ? 'show' : ''}}">
+    <view class="group">
+      <text class="label">价格区间</text>
+      <view class="options">
+        <view class="option" bindtap="onPriceTap" data-max="1500">1500以下</view>
+        <view class="option" bindtap="onPriceTap" data-min="1500" data-max="3000">1500-3000</view>
+        <view class="option" bindtap="onPriceTap" data-min="3000">3000以上</view>
+      </view>
+    </view>
+    <view class="group">
+      <text class="label">可信度</text>
+      <view class="options">
+        <view class="option" bindtap="onCredibilityTap" data-score="80">高度可信</view>
+        <view class="option" bindtap="onCredibilityTap" data-score="60">较为可信</view>
+        <view class="option" bindtap="onCredibilityTap" data-score="40">需谨慎</view>
+      </view>
+    </view>
+    <view class="actions">
+      <text class="btn-clear" bindtap="onClear">清除筛选</text>
+    </view>
+  </view>
+</view>

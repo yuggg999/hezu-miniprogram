@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "credibility-badge": "/components/credibility-badge/credibility-badge"
+  }
+}

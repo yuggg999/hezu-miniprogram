@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "credibility-badge": "/components/credibility-badge/credibility-badge"
+  },
+  "navigationBarTitleText": "帖子详情"
+}
