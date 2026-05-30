@@ -1,6 +1,6 @@
 App({
   globalData: {
-    baseUrl: 'http://localhost:8000',  // API 地址，上线时改为实际域名
+    baseUrl: 'https://hezu-api-264152-4-1438558899.sh.run.tcloudbase.com',  // 微信云托管地址
     city: '北京',
   },
 
